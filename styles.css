@@ -183,6 +183,23 @@ a {
     color: var(--primary-color);
 }
 
+/* Privacy Note */
+.privacy-note {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--gray-dark);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.privacy-note svg {
+    color: var(--primary-color);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-content h1 {
