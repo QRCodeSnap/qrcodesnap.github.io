@@ -54,7 +54,17 @@
 
       'footer.copy': '© 2026 QRCodeSnap. Made with care for macOS.',
       'footer.privacy': 'Privacy Policy',
-      'footer.contact': 'Contact'
+      'footer.contact': 'Contact',
+
+      // Localized assets — see /img/, /cn/img/, /ar/img/.
+      // App Store badge: en and ar share the English badge (no localized
+      // ar badge exists); zh has its own zh-CN badge in /cn/img/.
+      'img.appstore': { src: './img/app-store-badge.svg', alt: 'Download on the Mac App Store' },
+      'img.hero':     { src: './img/main.png',     alt: 'QRCodeSnap menu bar app on macOS' },
+      'img.main':     { src: './img/main.png',     alt: 'QRCodeSnap menu bar and scanning interface screenshot on macOS' },
+      'img.ocr':      { src: './img/ocr.png',      alt: 'QRCodeSnap OCR text recognition feature - select text from any screen image' },
+      'img.settings': { src: './img/settings.png', alt: 'QRCodeSnap settings interface screenshot showing customization options' },
+      'img.pro':      { src: './img/pro.png',      alt: 'QRCodeSnap premium features interface' }
     },
 
     zh: {
@@ -105,7 +115,14 @@
 
       'footer.copy': '© 2026 QRCodeSnap. 用心为 macOS 打造。',
       'footer.privacy': '隐私政策',
-      'footer.contact': '联系我们'
+      'footer.contact': '联系我们',
+
+      'img.appstore': { src: './cn/img/app-store-badge.svg', alt: '在 Mac App Store 下载 QRCodeSnap' },
+      'img.hero':     { src: './cn/img/main.png',     alt: 'QRCodeSnap 菜单栏应用截图 — macOS' },
+      'img.main':     { src: './cn/img/main.png',     alt: 'QRCodeSnap 菜单栏和二维码扫描界面截图，展示 macOS 上的二维码识别功能' },
+      'img.ocr':      { src: './cn/img/ocr.png',      alt: 'QRCodeSnap OCR 文字识别功能 - 从屏幕图像中选择文字' },
+      'img.settings': { src: './cn/img/settings.png', alt: 'QRCodeSnap 设置界面截图，展示自定义选项' },
+      'img.pro':      { src: './cn/img/pro.png',      alt: 'QRCodeSnap 高级功能界面截图，包括一键直达和快捷键' }
     },
 
     ar: {
@@ -156,7 +173,14 @@
 
       'footer.copy': '© 2026 QRCodeSnap. صُنع بعناية لنظام macOS.',
       'footer.privacy': 'سياسة الخصوصية',
-      'footer.contact': 'تواصل معنا'
+      'footer.contact': 'تواصل معنا',
+
+      'img.appstore': { src: './ar/img/app-store-badge.svg', alt: 'حمّل QRCodeSnap من Mac App Store' },
+      'img.hero':     { src: './ar/img/main.png',     alt: 'لقطة شاشة لتطبيق QRCodeSnap في شريط القوائم على macOS' },
+      'img.main':     { src: './ar/img/main.png',     alt: 'لقطة شاشة لشريط القوائم وواجهة المسح في QRCodeSnap على macOS' },
+      'img.ocr':      { src: './ar/img/ocr.png',      alt: 'ميزة التعرف على النص OCR - حدد النص من صورة الشاشة' },
+      'img.settings': { src: './ar/img/settings.png', alt: 'لقطة شاشة لواجهة إعدادات QRCodeSnap تظهر خيارات التخصيص' },
+      'img.pro':      { src: './ar/img/pro.png',      alt: 'لقطة شاشة لواجهة ميزات QRCodeSnap المميزة تشمل الفتح بنقرة واحدة والاختصار العام' }
     }
   };
 
@@ -178,6 +202,15 @@
     document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
       var key = el.getAttribute('data-i18n-html');
       if (t[key] != null) el.innerHTML = t[key];
+    });
+    // Localized images: data-i18n-img="img.foo" -> { src, alt }
+    document.querySelectorAll('[data-i18n-img]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-img');
+      var entry = t[key];
+      if (entry && typeof entry === 'object') {
+        if (entry.src) el.setAttribute('src', entry.src);
+        if (entry.alt != null) el.setAttribute('alt', entry.alt);
+      }
     });
     // attribute-targeted: data-i18n-attr="title:key,placeholder:key"
     document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
