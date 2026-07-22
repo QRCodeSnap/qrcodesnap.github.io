@@ -1,31 +1,35 @@
+// QRCodeSnap — modern site interactions
+
 document.addEventListener("DOMContentLoaded", () => {
-  const carouselContainers = document.querySelectorAll(".carousel-container");
+  // Reveal-on-scroll for sections / cards
+  const revealEls = document.querySelectorAll(
+    ".feature, .stat, .cta-inner, .hero-visual"
+  );
+  revealEls.forEach((el) => el.classList.add("reveal"));
 
-  carouselContainers.forEach((container) => {
-    const slides = container.querySelectorAll(".carousel-slide");
-    let currentSlide = 0;
-    const slideInterval = 3000; // 3 seconds
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add("in"));
+  }
 
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.style.display = "none";
-        if (i === index) {
-          slide.style.display = "block";
-        }
-      });
-    }
-
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-    }
-
-    // Initially show the first slide
-    showSlide(currentSlide);
-
-    // Start the automatic slideshow only if there's more than one slide
-    if (slides.length > 1) {
-      setInterval(nextSlide, slideInterval);
-    }
-  });
+  // Subtle parallax on hero visual
+  const heroVisual = document.querySelector(".hero-visual");
+  if (heroVisual && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.addEventListener("scroll", () => {
+      const y = Math.min(window.scrollY, 600);
+      heroVisual.style.transform = `translateY(${y * 0.06}px)`;
+    }, { passive: true });
+  }
 });

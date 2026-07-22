@@ -7,3 +7,6 @@ _site/
 vendor/
 .DS_Store
 CLAUDE.md
+# Local backups (before-edit snapshots)
+*.bak
+*.bak.[0-9]*
